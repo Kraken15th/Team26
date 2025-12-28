@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 26 - نظام اشتراكات المغاسل الذكي</title>
+    <meta name="description" content="حول مغسلتك إلى ماكينة أرباح مستمرة مع نظام الاشتراكات الذكي.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#FFD700',
+                            orange: '#FF8C00',
+                            yellow: '#FFC107',
+                            dark: '#0F172A',
+                            darker: '#020617',
+                            surface: '#1E293B',
+                            light: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        heading: ['Tajawal', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-glow {
+                text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+            }
+            .card-glow {
+                box-shadow: 0 0 30px rgba(255, 140, 0, 0.1);
+            }
+            .btn-glow {
+                box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+            }
+            .glass {
+                @apply bg-brand-surface/80 backdrop-blur-md border border-white/10;
+            }
+            .section-padding {
+                @apply py-20 px-4 md:px-8;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF8C00;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-brand-darker text-brand-light font-sans overflow-x-hidden selection:bg-brand-orange selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.jpg" alt="Team 26 Logo"
+                    class="h-10 w-auto rounded-full border-2 border-brand-gold/50 shadow-lg">
+                <span class="text-xl font-bold font-heading tracking-wider text-white">TEAM <span
+                        class="text-brand-gold">26</span></span>
+            </div>
+            <div class="hidden md:flex gap-6">
+                <a href="#problem" class="hover:text-brand-gold transition-colors">المشكلة</a>
+                <a href="#solution" class="hover:text-brand-gold transition-colors">الحل</a>
+                <a href="#pricing" class="hover:text-brand-gold transition-colors">العروض</a>
+                <a href="#guarantee" class="hover:text-brand-gold transition-colors">الضمان</a>
+            </div>
+            <a href="#cta"
+                class="bg-gradient-to-l from-brand-orange to-brand-gold text-brand-darker font-bold py-2 px-6 rounded-full hover:scale-105 transition-transform btn-glow">
+                احجز مكالمة
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-padding pt-32">
+        <!-- Background Effects -->
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-brand-orange/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-80 h-80 bg-brand-gold/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2">
+        </div>
+
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="text-center md:text-right space-y-8 reveal active">
+                <div
+                    class="inline-block px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-gold font-bold text-sm mb-2 animate-pulse-slow">
+                    <i class="fas fa-fire ml-2"></i> النظام الأول من نوعه للمغاسل
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-heading leading-tight">
+                    حول مغسلتك إلى <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-l from-brand-gold to-brand-orange text-glow">ماكينة
+                        أرباح</span> مستمرة
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    وداعاً لتذبذب الدخل والاعتماد على الزبون العابر. امتلك نظام اشتراكات ذكي يضمن لك سيولة نقدية مقدمة
+                    واستقراراً مالياً طوال العام.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#cta"
+                        class="bg-gradient-to-l from-brand-orange to-brand-gold text-brand-darker font-bold text-lg py-4 px-8 rounded-xl hover:scale-105 transition-transform btn-glow text-center shadow-lg hover:shadow-brand-orange/50">
+                        ابدأ بتغيير مغسلتك الآن
+                    </a>
+                    <a href="https://wa.me/1234567890"
+                        class="glass text-white font-bold text-lg py-4 px-8 rounded-xl hover:bg-white/10 transition-colors text-center flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-green-500 text-xl"></i> تواصل واتساب
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-4 justify-center md:justify-start pt-4 text-sm text-gray-400">
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-check-circle text-brand-gold"></i>
+                        <span>ضمان النتائج</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-check-circle text-brand-gold"></i>
+                        <span>تنفيذ شامل</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fas fa-check-circle text-brand-gold"></i>
+                        <span>زيادة الدخل</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization/Image Placeholder -->
+            <div class="relative reveal delay-200 hidden md:block">
+                <div class="relative z-10 animate-float">
+                    <!-- Dashboard Mockup Gradient Block -->
+                    <div
+                        class="bg-gradient-to-br from-brand-surface to-brand-darker border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                        <!-- Abstract UI Elements -->
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="h-4 w-24 bg-white/20 rounded"></div>
+                            <div class="h-8 w-8 bg-brand-orange rounded-full flex items-center justify-center"><i
+                                    class="fas fa-bell text-brand-darker text-xs"></i></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-brand-dark p-4 rounded-xl border border-white/5">
+                                <div class="text-gray-400 text-sm mb-1">إجمالي الاشتراكات</div>
+                                <div class="text-2xl font-bold text-brand-gold">1,240</div>
+                                <div class="text-green-500 text-xs mt-1">↑ 12% هذا الشهر</div>
+                            </div>
+                            <div class="bg-brand-dark p-4 rounded-xl border border-white/5">
+                                <div class="text-gray-400 text-sm mb-1">الدخل الشهري</div>
+                                <div class="text-2xl font-bold text-white">85,000 ر.س</div>
+                                <div class="text-green-500 text-xs mt-1">↑ 20% هذا الشهر</div>
+                            </div>
+                        </div>
+                        <div
+                            class="h-32 bg-brand-dark/50 rounded-xl border border-white/5 flex items-end justify-between p-4 px-6">
+                            <div class="w-8 h-[40%] bg-brand-gold/30 rounded-t-sm"></div>
+                            <div class="w-8 h-[60%] bg-brand-gold/50 rounded-t-sm"></div>
+                            <div class="w-8 h-[50%] bg-brand-gold/30 rounded-t-sm"></div>
+                            <div class="w-8 h-[75%] bg-brand-gold/70 rounded-t-sm"></div>
+                            <div class="w-8 h-[90%] bg-brand-gold rounded-t-sm shadow-[0_0_15px_rgba(255,215,0,0.5)]">
+                            </div>
+                        </div>
+
+                        <!-- Alert Badge -->
+                        <div
+                            class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-red-600/40 animate-pulse">
+                            تنبيه هام!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="absolute -top-10 -right-10 text-6xl text-brand-gold/20 animate-spin-slow">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="absolute bottom-10 -left-10 text-8xl text-brand-orange/10">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Problem Section -->
+    <section id="problem" class="section-padding bg-brand-surface relative">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold font-heading mb-4 text-white">واقع المغاسل <span
+                        class="text-red-500">مؤلم</span> اليوم</h2>
+                <div class="h-1 w-24 bg-red-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2 border-red-500/20 reveal delay-100">
+                    <div
+                        class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6 mx-auto text-red-500 text-2xl">
+                        <i class="fas fa-users-slash"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">زبائن عابرين</h3>
+                    <p class="text-gray-400 text-center text-sm">اعتماد كلي على الزبون الذي يأتي مرة ولن تراه مجدداً،
+                        مما يجعل الدخل غير مضمون.</p>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2 border-red-500/20 reveal delay-200">
+                    <div
+                        class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6 mx-auto text-red-500 text-2xl">
+                        <i class="fas fa-chart-line-down"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">تذبذب الدخل</h3>
+                    <p class="text-gray-400 text-center text-sm">أيام العمل مزدحمة وأيام ركود قاتلة، مما يسبب ضغطاً
+                        مالياً مستمراً على التشغيل.</p>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2 border-red-500/20 reveal delay-300">
+                    <div
+                        class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6 mx-auto text-red-500 text-2xl">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">غياب الاشتراكات</h3>
+                    <p class="text-gray-400 text-center text-sm">لا يوجد نظام ولاء حقيقي يربط العميل بك لفترة طويلة
+                        ويضمن عودته.</p>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2 border-red-500/20 reveal delay-400">
+                    <div
+                        class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6 mx-auto text-red-500 text-2xl">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">ضعف التسويق</h3>
+                    <p class="text-gray-400 text-center text-sm">الاعتماد على الموقع الجغرافي فقط دون الوصول للعملاء في
+                        منازلهم وعبر هواتفهم.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 p-6 bg-red-500/10 border border-red-500/30 rounded-xl text-center reveal">
+                <p class="text-xl text-white font-semibold">
+                    <i class="fas fa-exclamation-triangle text-red-500 ml-2"></i>
+                    الخلاصة: بدون نظام اشتراكات، أنت تخسر 50% من إمكانيات مغسلتك الحقيقية!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="section-padding bg-brand-darker relative overflow-hidden">
+        <div
+            class="absolute top-1/2 left-0 w-full h-full bg-gradient-to-t from-brand-orange/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="container mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-gold font-bold tracking-widest text-sm uppercase">الحل الجذري</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-heading mt-2 text-white">نظام اشتراكات <span
+                        class="text-brand-orange">ذكية</span></h2>
+                <div class="h-1 w-24 bg-brand-orange mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="space-y-8 reveal">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-brand-gold text-brand-darker flex items-center justify-center font-bold text-xl shrink-0">
+                            1</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">باقات مخصصة ومدروسة</h3>
+                            <p class="text-gray-400 leading-relaxed">باقات متنوعة تناسب الجميع (باقة الصالون، باقة الدفع
+                                الرباعي)، مصممة لرفع قيمة الفاتورة وإرضاء العميل.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-brand-gold text-brand-darker flex items-center justify-center font-bold text-xl shrink-0">
+                            2</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">عرض الـ 4 شهور + شهر مجاني</h3>
+                            <p class="text-gray-400 leading-relaxed">العرض السحري الذي يجذب العملاء للدفع مقدماً لفترة
+                                طويلة، مما يوفر لك سيولة نقدية ضخمة فوراً.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-brand-gold text-brand-darker flex items-center justify-center font-bold text-xl shrink-0">
+                            3</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">هدف 1000 مشترك</h3>
+                            <p class="text-gray-400 leading-relaxed">نخطط معك وننفذ للوصول إلى قاعدة بيانات تضم 1000
+                                مشترك نشط، مما يعني دخلاً ثابتاً ومضموناً.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Cards Visual -->
+                <div class="relative h-[500px] w-full flex items-center justify-center reveal delay-200">
+                    <!-- Card 1 (Back) -->
+                    <div
+                        class="absolute w-72 h-96 bg-brand-surface border border-white/5 rounded-2xl shadow-2xl transform translate-x-12 -translate-y-4 rotate-6 opacity-60 scale-90">
+                    </div>
+                    <!-- Card 2 (Back) -->
+                    <div
+                        class="absolute w-72 h-96 bg-brand-surface border border-white/5 rounded-2xl shadow-2xl transform -translate-x-12 -translate-y-8 -rotate-6 opacity-80 scale-95">
+                    </div>
+
+                    <!-- Card 3 (Front - Main) -->
+                    <div
+                        class="relative w-80 h-[450px] bg-gradient-to-b from-brand-surface to-brand-dark border border-brand-gold/30 rounded-3xl shadow-2xl shadow-brand-gold/10 p-6 flex flex-col items-center hover:scale-105 transition-transform duration-500 group">
+                        <div
+                            class="w-20 h-20 bg-brand-gold/20 rounded-full flex items-center justify-center mb-6 ring-4 ring-brand-gold/10 group-hover:ring-brand-gold/30 transition-all">
+                            <i class="fas fa-crown text-brand-gold text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">الباقة الذهبية</h3>
+                        <p class="text-gray-400 text-sm mb-6">شاملة الغسيل والكي</p>
+
+                        <div class="w-full h-px bg-white/10 mb-6"></div>
+
+                        <ul class="text-right w-full space-y-3 mb-8 text-gray-300 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-gold"></i> غسيل سيارات
+                                لامحدود</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-gold"></i> خدمة VIP
+                                سريعة</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-gold"></i> تعطير مجاني
+                            </li>
+                        </ul>
+
+                        <button
+                            class="w-full bg-brand-gold text-brand-darker font-bold py-3 rounded-xl hover:bg-brand-orange transition-colors mt-auto">
+                            اشترك الآن
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Numbers Section -->
+    <section
+        class="section-padding bg-brand-surface relative bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold font-heading text-white">لغة <span
+                        class="text-brand-gold">الأرقام</span></h2>
+                <div class="h-1 w-24 bg-brand-gold mx-auto rounded-full mt-4 mb-4"></div>
+                <p class="text-gray-400">عندما يتحدث الربح، نصمت لنسمع</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="glass p-10 rounded-2xl border-t-4 border-brand-gold reveal delay-100">
+                    <div class="text-5xl font-bold text-white mb-2 counter" data-target="1000">0</div>
+                    <div class="text-brand-orange font-bold text-xl mb-4">مشترك مستهدف</div>
+                    <p class="text-gray-400 text-sm">بناء قاعدة عملاء أوفياء يضمنون تشغيل المغسلة يومياً.</p>
+                </div>
+
+                <div class="glass p-10 rounded-2xl border-t-4 border-green-500 reveal delay-200">
+                    <div class="text-5xl font-bold text-white mb-2 flex justify-center items-center gap-2">
+                        <span>%</span><span class="counter" data-target="40">0</span>
+                    </div>
+                    <div class="text-green-500 font-bold text-xl mb-4">زيادة في الدخل</div>
+                    <p class="text-gray-400 text-sm">متوسط الزيادة المتوقعة في الإيرادات خلال أول 3 أشهر.</p>
+                </div>
+
+                <div class="glass p-10 rounded-2xl border-t-4 border-blue-500 reveal delay-300">
+                    <div class="text-5xl font-bold text-white mb-2 counter" data-target="100">0</div>
+                    <div class="text-blue-500 font-bold text-xl mb-4">استقرار مالي</div>
+                    <p class="text-gray-400 text-sm">تغطية كافة المصاريف التشغيلية من الإيرادات الثابتة للاشتراكات.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Incentives Section -->
+    <section id="pricing" class="section-padding bg-brand-darker">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold font-heading text-white">العروض التي <span
+                        class="text-brand-orange">تُغري العميل</span></h2>
+                <div class="h-1 w-24 bg-brand-orange mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Offer 1 -->
+                <div
+                    class="bg-gradient-to-br from-brand-surface to-brand-dark p-8 rounded-2xl border border-white/5 hover:border-brand-gold/50 transition-all duration-300 group reveal">
+                    <div
+                        class="w-14 h-14 bg-brand-gold/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-gift text-brand-gold text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">شهر مجاني</h3>
+                    <p class="text-gray-400 text-sm">اشترك لمدة 4 أشهر واحصل على الشهر الخامس مجاناً.</p>
+                </div>
+
+                <!-- Offer 2 -->
+                <div
+                    class="bg-gradient-to-br from-brand-surface to-brand-dark p-8 rounded-2xl border border-white/5 hover:border-brand-orange/50 transition-all duration-300 group reveal delay-100 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        الأقوى</div>
+                    <div
+                        class="w-14 h-14 bg-brand-orange/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-car text-brand-orange text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">سحب على سيارة</h3>
+                    <p class="text-gray-400 text-sm">فرصة للمشتركين للدخول في سحب سنوي لجوائز قيمة.</p>
+                </div>
+
+                <!-- Offer 3 -->
+                <div
+                    class="bg-gradient-to-br from-brand-surface to-brand-dark p-8 rounded-2xl border border-white/5 hover:border-blue-500/50 transition-all duration-300 group reveal delay-200">
+                    <div
+                        class="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-wallet text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">توفير الدفع المسبق</h3>
+                    <p class="text-gray-400 text-sm">خصم إضافي 5-10% عند الدفع المسبق للباقات السنوية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Execution System -->
+    <section class="section-padding bg-brand-surface">
+        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1 relative reveal">
+                <!-- Abstract Dashboard Graphic -->
+                <div class="bg-brand-darker rounded-2xl p-6 border border-white/10 shadow-2xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-brand-surface rounded-xl border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+                                <i class="fas fa-check"></i></div>
+                            <div>
+                                <div class="text-white font-bold">تم إطلاق الحملة الإعلانية</div>
+                                <div class="text-xs text-gray-500">منذ ساعتين</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-brand-surface rounded-xl border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500">
+                                <i class="fas fa-file-alt"></i></div>
+                            <div>
+                                <div class="text-white font-bold">تقرير الأداء الأسبوعي</div>
+                                <div class="text-xs text-gray-500">جاهز للتحميل</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-brand-surface rounded-xl border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-users"></i></div>
+                            <div>
+                                <div class="text-white font-bold">تم تدريب الموظفين</div>
+                                <div class="text-xs text-gray-500">مكتمل</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2 reveal text-right">
+                <span class="text-brand-orange font-bold tracking-widest text-sm uppercase">احترافية التنفيذ</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-heading mt-2 text-white mb-6">نظام تشغيل وتسويق <span
+                        class="text-transparent bg-clip-text bg-gradient-to-l from-brand-gold to-brand-orange">متكامل</span>
+                </h2>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center mt-1 shrink-0">
+                            <i class="fas fa-check text-brand-darker text-xs"></i>
+                        </div>
+                        <p class="text-gray-300"><strong>حملات إعلانية:</strong> استهداف دقيق للعملاء في منطقتك
+                            الجغرافية عبر السوشيال ميديا.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center mt-1 shrink-0">
+                            <i class="fas fa-check text-brand-darker text-xs"></i>
+                        </div>
+                        <p class="text-gray-300"><strong>صناعة محتوى:</strong> تصميمات احترافية وفيديوهات ترويجية تظهر
+                            جودة خدماتك.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center mt-1 shrink-0">
+                            <i class="fas fa-check text-brand-darker text-xs"></i>
+                        </div>
+                        <p class="text-gray-300"><strong>تدريب الطاقم:</strong> ندرب موظفيك على كيفية بيع الاشتراكات
+                            والتعامل مع النظام.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center mt-1 shrink-0">
+                            <i class="fas fa-check text-brand-darker text-xs"></i>
+                        </div>
+                        <p class="text-gray-300"><strong>تقارير أداء:</strong> تقارير دورية تطلعك على النتائج والأرباح
+                            أولاً بأول.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="section-padding bg-brand-darker">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold font-heading text-white">خارطة الطريق – 6 أسابيع</h2>
+                <div class="h-1 w-24 bg-brand-gold mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="relative py-10">
+                <!-- Line -->
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-white/10 -translate-y-1/2 hidden md:block"></div>
+
+                <div class="grid md:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative group reveal delay-100">
+                        <div
+                            class="w-10 h-10 bg-brand-surface border-4 border-brand-orange rounded-full absolute top-0 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-125 group-hover:bg-brand-orange">
+                        </div>
+                        <div class="pt-16 md:pt-24 text-center">
+                            <h4 class="text-xl font-bold text-brand-gold">الأسبوع 1-2</h4>
+                            <p class="text-sm text-gray-400 mt-2">التجهيز والتدريب وإعداد النظام</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative group reveal delay-200">
+                        <div
+                            class="w-10 h-10 bg-brand-surface border-4 border-white/20 rounded-full absolute top-0 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-125 group-hover:border-brand-gold group-hover:bg-brand-gold">
+                        </div>
+                        <div class="hidden md:block pb-24 text-center absolute w-full top-[-100px]">
+                            <h4 class="text-xl font-bold text-white">الأسبوع 3</h4>
+                            <p class="text-sm text-gray-400 mt-2">إطلاق الحملات التسويقية</p>
+                        </div>
+                        <!-- Mobile View -->
+                        <div class="md:hidden pt-16 text-center">
+                            <h4 class="text-xl font-bold text-white">الأسبوع 3</h4>
+                            <p class="text-sm text-gray-400 mt-2">إطلاق الحملات التسويقية</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative group reveal delay-300">
+                        <div
+                            class="w-10 h-10 bg-brand-surface border-4 border-white/20 rounded-full absolute top-0 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-125 group-hover:border-brand-gold group-hover:bg-brand-gold">
+                        </div>
+                        <div class="pt-16 md:pt-24 text-center">
+                            <h4 class="text-xl font-bold text-white">الأسبوع 4-5</h4>
+                            <p class="text-sm text-gray-400 mt-2">استقبال المشتركين والتحسين</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative group reveal delay-400">
+                        <div
+                            class="w-10 h-10 bg-brand-surface border-4 border-brand-green-500 rounded-full absolute top-0 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-125 group-hover:bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.5)]">
+                        </div>
+                        <div class="hidden md:block pb-24 text-center absolute w-full top-[-100px]">
+                            <h4 class="text-xl font-bold text-white">الأسبوع 6</h4>
+                            <p class="text-sm text-gray-400 mt-2">تحقيق الأهداف والاستقرار</p>
+                        </div>
+                        <!-- Mobile View -->
+                        <div class="md:hidden pt-16 text-center">
+                            <h4 class="text-xl font-bold text-white">الأسبوع 6</h4>
+                            <p class="text-sm text-gray-400 mt-2">تحقيق الأهداف والاستقرار</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section-padding bg-brand-surface">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass rounded-2xl overflow-hidden shadow-2xl reveal">
+                <table class="w-full text-right">
+                    <thead class="bg-brand-darker text-white">
+                        <tr>
+                            <th class="p-6 text-lg">وجه المقارنة</th>
+                            <th class="p-6 text-lg text-red-400 w-1/3 text-center">مغسلة تقليدية</th>
+                            <th class="p-6 text-lg text-brand-gold w-1/3 text-center bg-brand-gold/10 relative">
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-brand-gold"></div>
+                                مغسلة مع Team 26
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10">
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-6 text-gray-300 font-bold">استقرار الدخل</td>
+                            <td class="p-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                            <td class="p-6 text-center bg-brand-gold/5"><i
+                                    class="fas fa-check-circle text-brand-gold text-2xl"></i></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-6 text-gray-300 font-bold">ولاء العملاء</td>
+                            <td class="p-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                            <td class="p-6 text-center bg-brand-gold/5"><i
+                                    class="fas fa-check-circle text-brand-gold text-2xl"></i></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-6 text-gray-300 font-bold">التسويق الاحترافي</td>
+                            <td class="p-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                            <td class="p-6 text-center bg-brand-gold/5"><i
+                                    class="fas fa-check-circle text-brand-gold text-2xl"></i></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="p-6 text-gray-300 font-bold">السيولة النقدية</td>
+                            <td class="p-6 text-center text-sm text-gray-500">يومية / متذبذبة</td>
+                            <td class="p-6 text-center bg-brand-gold/5 text-brand-gold font-bold">مقدمة / مضمونة</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee & Social Proof -->
+    <section id="guarantee" class="section-padding bg-brand-darker relative">
+        <div class="container mx-auto max-w-5xl">
+            <!-- Guarantee Badge -->
+            <div
+                class="bg-gradient-to-r from-brand-gold/20 to-brand-orange/20 border border-brand-gold/50 rounded-3xl p-8 md:p-12 mb-20 text-center relative overflow-hidden reveal">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/30 blur-3xl"></div>
+
+                <div
+                    class="w-24 h-24 bg-gradient-to-br from-brand-gold to-brand-orange rounded-full flex items-center justify-center text-4xl text-brand-darker mx-auto mb-6 shadow-lg shadow-brand-orange/40">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">ضمان النتائج الذهبي</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">نحن واثقون من نظامنا. إذا لم تحقق زيادة في الاشتراكات
+                    والدخل خلال الفترة المحددة، سنعمل معك مجاناً حتى تحقق الهدف.</p>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass p-8 rounded-2xl rounded-tr-none reveal delay-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-gray-600 rounded-full"></div> <!-- Placeholder Avatar -->
+                        <div>
+                            <div class="font-bold text-white">أبو محمد</div>
+                            <div class="text-xs text-brand-gold">مالك مغسلة الشروق</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm">"كان وضع السوق صعب جداً والمنافسة شديدة. بعد تطبيق نظام Team 26،
+                        ضمنت رواتب العمال والايجار من الأسبوع الأول في الشهر بفضل الاشتراكات."</p>
+                    <div class="mt-4 flex text-brand-orange text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="glass p-8 rounded-2xl rounded-tr-none reveal delay-200">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-gray-600 rounded-full"></div> <!-- Placeholder Avatar -->
+                        <div>
+                            <div class="font-bold text-white">أ. عبدالله العنزي</div>
+                            <div class="text-xs text-brand-gold">مغاسل الفخامة</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm">"أفضل استثمار عملته هو التعاقد معكم. التسويق كان احترافي جداً،
+                        والعملاء حبوا فكرة التطبيق والاشتراك. الأرباح زادت 35% في شهرين."</p>
+                    <div class="mt-4 flex text-brand-orange text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="cta" class="section-padding bg-gradient-to-b from-brand-darker to-black relative">
+        <div class="container mx-auto max-w-4xl text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold font-heading text-white mb-6">جاهز لمضاعفة أرباحك؟</h2>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">لا تترك مغسلتك للصدفة. انضم إلى النخبة واستثمر في
+                نظام يضمن لك النمو والاستقرار.</p>
+
+            <div class="glass p-8 md:p-12 rounded-3xl max-w-lg mx-auto shadow-2xl border border-brand-gold/30">
+                <form class="space-y-4"
+                    onsubmit="event.preventDefault(); alert('شكراً لاهتمامك! سيتم التواصل معك قريباً.');">
+                    <div>
+                        <input type="text" placeholder="اسمك الكريم"
+                            class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-gold transition-colors">
+                    </div>
+                    <div>
+                        <input type="tel" placeholder="رقم الجوال"
+                            class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-gold transition-colors text-right"
+                            dir="ltr">
+                    </div>
+                    <div>
+                        <select
+                            class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-gray-300 focus:outline-none focus:border-brand-gold transition-colors">
+                            <option value="">عدد فروع المغسلة</option>
+                            <option value="1">فرع واحد</option>
+                            <option value="2-5">2 - 5 فروع</option>
+                            <option value="+5">أكثر من 5 فروع</option>
+                        </select>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-l from-brand-orange to-brand-gold text-brand-darker font-bold text-xl py-4 rounded-xl hover:shadow-[0_0_30px_rgba(255,140,0,0.4)] transition-all transform hover:-translate-y-1">
+                        احجز استشارتك المجانية
+                    </button>
+                    <p class="text-xs text-gray-500 mt-4">نحترم خصوصيتك. بياناتك آمنة 100%.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-white/5 text-center text-gray-500 text-sm">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Team 26. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Sticky WhatsApp -->
+    <a href="https://wa.me/1234567890"
+        class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform animate-bounce hover:animate-none">
+        <i class="fab fa-whatsapp text-4xl"></i>
+    </a>
+
+    <!-- Sticky Mobile CTA (Bottom) -->
+    <div class="fixed bottom-0 left-0 w-full bg-brand-surface border-t border-white/10 p-4 z-40 md:hidden flex gap-4">
+        <a href="#cta"
+            class="flex-1 bg-brand-gold text-brand-darker font-bold py-3 rounded-lg text-center shadow-lg">احجز الآن</a>
+        <a href="https://wa.me/1234567890"
+            class="w-12 bg-gray-800 text-green-500 font-bold py-3 rounded-lg flex items-center justify-center border border-white/10"><i
+                class="fab fa-whatsapp text-2xl"></i></a>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // Navbar Blur Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('bg-brand-surface/80', 'bg-brand-darker/95');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.replace('bg-brand-darker/95', 'bg-brand-surface/80');
+            }
+        });
+
+        // Number Counters Animation
+        const counters = document.querySelectorAll('.counter');
+        let hasAnimatedCounters = false;
+
+        const animateCounters = () => {
+            const section = document.querySelector('.counter').closest('section');
+            const sectionTop = section.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (sectionTop < windowHeight - 100 && !hasAnimatedCounters) {
+                hasAnimatedCounters = true;
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const increment = target / (duration / 20); // 50fps
+
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            setTimeout(updateCounter, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+            }
+        };
+
+        window.addEventListener('scroll', animateCounters);
+
+        // Tracking Pixels Placeholder Functions
+        function trackEvent(pixelName, eventName) {
+            console.log(`Tracking ${pixelName} event: ${eventName}`);
+            // Actual pixel code would go here
+        }
+
+        // Example usage:
+        // trackEvent('Facebook', 'PageView');
+    </script>
+</body>
+
+</html>
