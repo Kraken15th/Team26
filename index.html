@@ -6,7 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team 26 - نظام اشتراكات المغاسل الذكي</title>
     <meta name="description" content="حول مغسلتك إلى ماكينة أرباح مستمرة مع نظام الاشتراكات الذكي.">
-
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '877988378741391');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=877988378741391&ev=PageView&noscript=1" />
+    </noscript>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,9 +200,8 @@
             </div>
 
             <!-- Visualization/Image Placeholder -->
-            <div class="relative reveal delay-200 hidden md:block">
+            <div class="relative reveal delay-200 block max-w-md md:max-w-none mx-auto w-full">
                 <div class="relative z-10">
-                    <!-- Dashboard Mockup Gradient Block -->
                     <div
                         class="bg-gradient-to-br from-brand-surface to-brand-darker border border-white/10 rounded-2xl p-2 shadow-2xl relative overflow-hidden">
                         <div class="relative w-full pt-[56.25%] overflow-hidden rounded-xl">
@@ -197,13 +214,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Decorative Elements -->
-                <div class="absolute -top-10 -right-10 text-6xl text-brand-gold/20 animate-spin-slow">
+                <div class="absolute -top-10 -right-10 text-6xl text-brand-gold/20 animate-spin-slow hidden md:block">
                     <i class="fas fa-cog"></i>
-                </div>
-                <div class="absolute bottom-10 -left-10 text-8xl text-brand-orange/10">
-                    <i class="fas fa-chart-line"></i>
                 </div>
             </div>
         </div>
@@ -705,24 +717,23 @@
                 نظام يضمن لك النمو والاستقرار.</p>
 
             <div class="glass p-8 md:p-12 rounded-3xl max-w-lg mx-auto shadow-2xl border border-brand-gold/30">
-                <form class="space-y-4"
-                    onsubmit="event.preventDefault(); alert('شكراً لاهتمامك! سيتم التواصل معك قريباً.');">
+                <form class="space-y-4" onsubmit="sendToWhatsapp(event)">
                     <div>
-                        <input type="text" placeholder="اسمك الكريم"
+                        <input id="form-name" type="text" placeholder="اسمك الكريم" required
                             class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-gold transition-colors">
                     </div>
                     <div>
-                        <input type="tel" placeholder="رقم الجوال"
+                        <input id="form-phone" type="tel" placeholder="رقم الجوال" required
                             class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-gold transition-colors text-right"
                             dir="ltr">
                     </div>
                     <div>
-                        <select
+                        <select id="form-branches" required
                             class="w-full bg-brand-darker/50 border border-white/10 rounded-xl px-4 py-4 text-gray-300 focus:outline-none focus:border-brand-gold transition-colors">
                             <option value="">عدد فروع المغسلة</option>
-                            <option value="1">فرع واحد</option>
-                            <option value="2-5">2 - 5 فروع</option>
-                            <option value="+5">أكثر من 5 فروع</option>
+                            <option value="فرع واحد">فرع واحد</option>
+                            <option value="2 - 5 فروع">2 - 5 فروع</option>
+                            <option value="أكثر من 5 فروع">أكثر من 5 فروع</option>
                         </select>
                     </div>
                     <button type="submit"
@@ -743,7 +754,7 @@
     </footer>
 
     <!-- Sticky WhatsApp -->
-    <a href="https://wa.me/1234567890"
+    <a href="https://wa.me/+96895503553"
         class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform animate-bounce hover:animate-none">
         <i class="fab fa-whatsapp text-4xl"></i>
     </a>
@@ -752,7 +763,7 @@
     <div class="fixed bottom-0 left-0 w-full bg-brand-surface border-t border-white/10 p-4 z-40 md:hidden flex gap-4">
         <a href="#cta"
             class="flex-1 bg-brand-gold text-brand-darker font-bold py-3 rounded-lg text-center shadow-lg">احجز الآن</a>
-        <a href="https://wa.me/1234567890"
+        <a href="https://wa.me/+96895503553"
             class="w-12 bg-gray-800 text-green-500 font-bold py-3 rounded-lg flex items-center justify-center border border-white/10"><i
                 class="fab fa-whatsapp text-2xl"></i></a>
     </div>
@@ -831,6 +842,26 @@
 
         // Example usage:
         // trackEvent('Facebook', 'PageView');
+
+        function sendToWhatsapp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const branches = document.getElementById('form-branches').value;
+
+            const message = `مرحباً Team 26، أود الاستفسار عن نظام الاشتراكات:%0A%0A` +
+                `*الاسم:* ${name}%0A` +
+                `*رقم الجوال:* ${phone}%0A` +
+                `*عدد الفروع:* ${branches}`;
+
+            // Track Facebook Event
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', { content_name: 'Consultation Request' });
+            }
+
+            window.open(`https://wa.me/+96895503553?text=${message}`, '_blank');
+        }
     </script>
 </body>
 
