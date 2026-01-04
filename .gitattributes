@@ -1,3 +1,2 @@
-assets/فيديو صفحة الهبوط 3.mp4 filter=lfs diff=lfs merge=lfs -text
 assets/logo.jpg filter=lfs diff=lfs merge=lfs -text 
 assets/landing-video.mp4 filter=lfs diff=lfs merge=lfs -text
